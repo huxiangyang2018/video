@@ -20,7 +20,7 @@ public class AdminController {
 		Admin admin = as.adminLogin(a);
 		if(admin!=null){
 			req.getSession().setAttribute("admin", admin);
-			return "navigation";
+			return "redirect:/video/video-list.action";
 		}else{
 			req.setAttribute("error", "用户名和密码不匹配");
 			return "forward:/index.jsp";

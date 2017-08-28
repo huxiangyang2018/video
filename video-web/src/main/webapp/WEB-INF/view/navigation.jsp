@@ -21,28 +21,28 @@
 		<div class="container">
 			
 			<div class="navbar-header">
-				<a class="navbar-brand"    target="pageBox"
+				<a class="navbar-brand"    
 				 href="${pageContext.request.contextPath }/video/video-list.action">视频管理系统</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li >
-						<a target="pageBox" href="${pageContext.request.contextPath }/video/video-list.action">视频管理 </a>
+					<li ${param.fromJsp=="video"?"class='active'":""}>
+						<a href="${pageContext.request.contextPath }/video/video-list.action">视频管理 </a>
 					</li>
-					<li>
-						<a target="pageBox" href="${pageContext.request.contextPath }/speaker/speakerList.action">主讲人管理</a>
+					<li ${param.fromJsp=="speaker"?"class='active'":""}>
+						<a  href="${pageContext.request.contextPath }/speaker/speakerList.action">主讲人管理</a>
 					</li>
-					<li>
-						<a target="pageBox" href="${pageContext.request.contextPath }/course/courseList.action">课程管理</a>
+					<li ${param.fromJsp=="course"?"class='active'":""}>
+						<a href="${pageContext.request.contextPath }/course/courseList.action">课程管理</a>
 					</li>
-					<li>
-						<a href="${pageContext.request.contextPath }/analysis/analysis.action" target="pageBox">统计分析</a>
+					<li ${param.fromJsp=="analysis"?"class='active'":""}>
+						<a href="${pageContext.request.contextPath }/analysis/analysis.action">统计分析</a>
 					</li>
 				</ul>
 					<ul  class="nav navbar-nav navbar-right">
 					<li >
-						<a target="pageBox" href="${pageContext.request.contextPath }/admin/loginOut.action">${admin.loginName }
+						<a href="${pageContext.request.contextPath }/admin/loginOut.action">${admin.loginName }
 						<span class="glyphicon glyphicon-log-out"></span></a>
 						<!-- <span class="glyphicon glyphicon-log-out" aria-hidden="true" ></span></a> -->
 					</li>
@@ -51,8 +51,9 @@
 		</div>
 	</div>
 <!-- 	</nav> -->
-	    <div class="embed-responsive embed-responsive-16by9">
+	
+	   <%--  <div class="embed-responsive embed-responsive-16by9">
   			<iframe class="embed-responsive-item" src="${pageContext.request.contextPath }/video/video-list.action" name="pageBox"></iframe>
-		</div>
+		</div> --%>
 	</body>
 </html>

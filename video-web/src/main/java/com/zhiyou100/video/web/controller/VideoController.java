@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhiyou100.video.dao.model.Course;
 import com.zhiyou100.video.dao.model.Page;
@@ -73,17 +74,18 @@ public class VideoController {
 	
 	
 	@RequestMapping("/deleteVideo.action")
+	@ResponseBody
 	public String delete(Video v,Integer id,Model md){
 		md.addAttribute("v", v);
 		vs.deleteVideo(id);
-		return "forward:/video/video-list.action";
+		return "success";
 	}
 	
 	
 	@RequestMapping("/deleteVideos.action")
-	public String deleteVideos(@RequestParam(defaultValue="0")Integer checkbox[]){
+	public String deleteVideos(@RequestParam(defaultValue="0")Integer checkid[]){
 		System.out.println("批量删除");
-		for(int i:checkbox){
+		for(int i:checkid){
 			vs.deleteVideo(i);
 		}
 		return "forward:/video/video-list.action";

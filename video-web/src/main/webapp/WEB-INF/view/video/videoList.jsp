@@ -10,14 +10,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 <title>视频列表</title>
-<link href="${pageContext.request.contextPath }/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="${pageContext.request.contextPath }/js/jquery-1.12.4.min.js"></script>
-<script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+<link href='<c:url value="/css/bootstrap.min.css"></c:url>' rel="stylesheet">
+    <script src='<c:url value="/js/jquery-1.12.4.min.js"></c:url>'></script>
+    <script src='<c:url value="/js/bootstrap.min.js"></c:url>'></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-confirm.min.css" />
+      <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-confirm.min.js" ></script>
+
+	
 
 <script>
-    		var time = 0;
+    		/* var time = 0;
     		function count(check){
     			if(check.checked){
     				time++;
@@ -36,28 +38,102 @@
   			e.checked=ck.checked;
   			count(e);
  				}
+			} */
+			/* function deleteData() {
+			if(!confirm("确定要删除吗?")){
+				window.event.returnValue = false;
 			}
-			
-			function deleteData(){
-				if(!confirm("你确定要删除吗?")){
-					window.event.returnValue = false;
-				}
+		} */
+		
+		/* function deleteVideos(){
+			if(!confirm("你确定要删除这"+time+"条吗?")){
+				window.event.returnValue = false;
+			}else{
+				document.getElementById("videoform").action="${pageContext.request.contextPath }/video/deleteVideos.action"
+				document.getElementById("videoform").submit();
+				return true;
 			}
-			
-			function deleteVideos(){
-				if(!confirm("你确定要删除这"+time+"条吗?")){
-					window.event.returnValue = false;
+		} */
+			var deleteNum = 0;
+			function checkDelete(ele){
+				var size = $("input[name=checkid]").length;
+				if(ele.checked){
+					deleteNum ++;
 				}else{
-					document.getElementById("videoform").action="${pageContext.request.contextPath }/video/deleteVideos.action"
-					document.getElementById("videoform").submit();
-					return true;
+					deleteNum --;
+				}
+				$("#countSpan").text(deleteNum);
+				if(size == deleteNum){
+					$("#checkAll").prop("checked",true);
+				}else{
+					$("#checkAll").prop("checked",false);
 				}
 			}
+			function checkAllElement(ele){
+				$("input[name=checkid]").prop("checked",ele.checked);
+				if(ele.checked){
+					deleteNum = $("input[name='checkid']").length;
+				}else{
+					deleteNum = 0;
+				}
+				$("#countSpan").text(deleteNum);
+			}
+			function batchDelete(){
+				if(deleteNum == 0){
+					$.alert({
+					    title: '提示',
+					    content: '还没有选择',
+					});
+					return;
+				}
+				$.confirm({
+				    title: '小心',
+				    content: '看清楚,可以全删哦',
+				    buttons: {
+				    	确认: function () {
+				        	$("#deleteForm").prop("action","${pageContext.request.contextPath}/video/deleteVideos.action");
+				        	//$("#deleteForm")[0].action="${pageContext.request.contextPath}/video/deleteVideos.action";
+				        	$("#deleteForm").submit();
+				        },
+				                  取消: function () {
+				           
+				        }
+				    }
+				});
+			}
+			
+			 function deleteData(id){
+				 alert(111);
+				$.confirm({
+				    title: '小心',
+				    content: '确认删除么?',
+				    buttons: {
+				    	确认: function () {
+				    		   $.ajax({
+				    			   data:{"id":id},
+				    			   dataType:"text",
+				    			   success:function(msg){
+				    				 	if(msg=="success"){
+				    				 		location.reload();
+				    				 	}
+				    			   },
+				    			   type:"GET",
+				    			   url:"${pageContext.request.contextPath }/video/deleteVideo.action"   
+				    		   });
+				        },
+				                    取消: function () {
+				        }
+				    }
+				});
+			}
+
 		</script>
 </head>
 
 <body>
-	
+	<jsp:include page="/WEB-INF/view/navigation.jsp">
+		<jsp:param value="video" name="fromJsp"/>
+	</jsp:include>
 	<div class="row">
 		<div class="jumbotron col-md-offset-2 col-md-8"
 			style="border-radius: 10px;">
@@ -66,15 +142,15 @@
 			</div>
 		</div>
 
-		<form class="form-inline" id="videoform"
+		<form class="form-inline" id="deleteForm"
 			action="${pageContext.request.contextPath }/video/video-list.action">
 			<a href="${pageContext.request.contextPath }/video/addVideo.action" 
 				class="btn btn-primary col-md-offset-2"
 				role="button">添加视频
 			</a> 
-			<a  onclick="return deleteVideos()">
+			<a  onclick="batchDelete()">
 				<button class="btn btn-primary" type="button">
-					批量删除<span class="badge" id="delete">0</span>
+					批量删除<span class="badge" id="countSpan">0</span>
 				</button>
 			</a>
 			<div class="form-group col-md-offset-2">
@@ -109,7 +185,7 @@
 					<thead>
 						<tr>
 							<td><label class="checkbox-inline"> 
-							<input type="checkbox" id="ckb" onclick="SelectAll()"
+							<input type="checkbox" id="checkAll" onclick="checkAllElement(this)"
 							>序号
 							</label></td>
 							<td>名称</td>
@@ -126,7 +202,7 @@
 						<c:forEach items="${page.rows }" var="v" varStatus="status">
 							<tr>
 								<td><label class="checkbox-inline"> <input
-										type="checkbox" name="checkbox" onclick="count(this)"
+										type="checkbox" name="checkid" onclick="checkDelete(this)"
 										value="${v.id}">${status.count }
 								</label></td>
 								<td>${v.videoTitle }</td>
@@ -140,9 +216,9 @@
 										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 								</a></td>
 
-								<td><a  href="${pageContext.request.contextPath }/video/deleteVideo.action?id=${v.id}"
-										onclick="return deleteData()"					>
+								<td><a  onclick="deleteData(${v.id})">
 										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+										<!-- href="${pageContext.request.contextPath }/video/deleteVideo.action?id=${v.id}" -->
 								</a></td>
 							</tr>
 						</c:forEach>

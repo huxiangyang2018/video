@@ -16,6 +16,11 @@
 	</head>
 	
 	<body>
+	
+	<jsp:include page="/WEB-INF/view/navigation.jsp">
+		<jsp:param value="video" name="fromJsp"/>
+	</jsp:include>
+	
 		<div class="row">
 		<div class="jumbotron col-md-offset-2 col-md-8" id="jumbotron" style="border-radius: 10px;"> 
 			<div class="container">

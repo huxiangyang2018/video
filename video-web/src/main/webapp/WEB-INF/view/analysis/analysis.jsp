@@ -18,7 +18,9 @@
 </head>
 
 <body>
-
+	<jsp:include page="/WEB-INF/view/navigation.jsp">
+		<jsp:param value="analysis" name="fromJsp"/>
+	</jsp:include>
 	<div class="row">
 		<div class="jumbotron col-md-offset-2 col-md-8"
 			style="border-radius: 10px;">
