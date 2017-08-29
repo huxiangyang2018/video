@@ -9,15 +9,14 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
     	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     	<title>导航</title>
-    	<link href="${pageContext.request.contextPath }/css/bootstrap.min.css" rel="stylesheet">
+<%--     	<link href="${pageContext.request.contextPath }/css/bootstrap.min.css" rel="stylesheet">
     	<script src="${pageContext.request.contextPath }/js/jquery-1.12.4.min.js"></script>
-    	<script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+    	<script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script> --%>
     	
 	</head>
 	
 	<body>
 	<div class="navbar navbar-inverse">
-<!-- 	<nav class="navbar navbar-inverse"> -->
 		<div class="container">
 			
 			<div class="navbar-header">
@@ -44,16 +43,10 @@
 					<li >
 						<a href="${pageContext.request.contextPath }/admin/loginOut.action">${admin.loginName }
 						<span class="glyphicon glyphicon-log-out"></span></a>
-						<!-- <span class="glyphicon glyphicon-log-out" aria-hidden="true" ></span></a> -->
 					</li>
   					</ul>	
 			</div>
 		</div>
 	</div>
-<!-- 	</nav> -->
-	
-	   <%--  <div class="embed-responsive embed-responsive-16by9">
-  			<iframe class="embed-responsive-item" src="${pageContext.request.contextPath }/video/video-list.action" name="pageBox"></iframe>
-		</div> --%>
-	</body>
+</body>
 </html>

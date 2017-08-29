@@ -15,25 +15,10 @@
 	src="${pageContext.request.contextPath }/js/jquery-1.12.4.min.js"></script>
 <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath }/js/echarts.js"></script>
-</head>
+<script type="text/javascript">
+       window.onload = function(){
+    	   
 
-<body>
-	<jsp:include page="/WEB-INF/view/navigation.jsp">
-		<jsp:param value="analysis" name="fromJsp"/>
-	</jsp:include>
-	<div class="row">
-		<div class="jumbotron col-md-offset-2 col-md-8"
-			style="border-radius: 10px;">
-			<div class="container">
-				<h3>统计-统计分析</h3>
-			</div>
-		</div>
-
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main" style="width: 1200px;height:560px;" class="col-md-offset-2 col-md-8"></div>
-    
-    <script type="text/javascript">
-        
          var myChart = echarts.init(document.getElementById('main'));
          
          // 显示标题，图例和空的坐标轴
@@ -126,9 +111,27 @@
          myChart.hideLoading();
          }
     })
-
+       } 
          
     </script>
+</head>
+
+<body>
+	<jsp:include page="/WEB-INF/view/navigation.jsp">
+		<jsp:param value="analysis" name="fromJsp"/>
+	</jsp:include>
+	<div class="row">
+		<div class="jumbotron col-md-offset-2 col-md-8"
+			style="border-radius: 10px;">
+			<div class="container">
+				<h3>统计-统计分析</h3>
+			</div>
+		</div>
+
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 1200px;height:560px;" class="col-md-offset-2 col-md-8"></div>
+    
+    
    </div> 
 </body>
 </html>

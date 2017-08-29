@@ -10,50 +10,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 <title>视频列表</title>
-<link href='<c:url value="/css/bootstrap.min.css"></c:url>' rel="stylesheet">
-    <script src='<c:url value="/js/jquery-1.12.4.min.js"></c:url>'></script>
-    <script src='<c:url value="/js/bootstrap.min.js"></c:url>'></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-confirm.min.css" />
-      <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-confirm.min.js" ></script>
-
-	
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-confirm.min.css" />
+<script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-confirm.min.js" ></script>
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script>
-    		/* var time = 0;
-    		function count(check){
-    			if(check.checked){
-    				time++;
-    			}else if(time>0){
-    				time--;
-    			}
-    			document.getElementById("delete").innerHTML=time;
-    		}
-    		
-			function SelectAll() {
-				time = 0;
-			var ck = document.getElementById("ckb")
- 			var checkboxs=document.getElementsByName("checkbox")
- 			for (var i=0;i<checkboxs.length;i++) {
-  			var e=checkboxs[i];
-  			e.checked=ck.checked;
-  			count(e);
- 				}
-			} */
-			/* function deleteData() {
-			if(!confirm("确定要删除吗?")){
-				window.event.returnValue = false;
-			}
-		} */
-		
-		/* function deleteVideos(){
-			if(!confirm("你确定要删除这"+time+"条吗?")){
-				window.event.returnValue = false;
-			}else{
-				document.getElementById("videoform").action="${pageContext.request.contextPath }/video/deleteVideos.action"
-				document.getElementById("videoform").submit();
-				return true;
-			}
-		} */
+
 			var deleteNum = 0;
 			function checkDelete(ele){
 				var size = $("input[name=checkid]").length;
@@ -69,6 +32,7 @@
 					$("#checkAll").prop("checked",false);
 				}
 			}
+			
 			function checkAllElement(ele){
 				$("input[name=checkid]").prop("checked",ele.checked);
 				if(ele.checked){
@@ -78,6 +42,7 @@
 				}
 				$("#countSpan").text(deleteNum);
 			}
+			
 			function batchDelete(){
 				if(deleteNum == 0){
 					$.alert({
@@ -103,7 +68,6 @@
 			}
 			
 			 function deleteData(id){
-				 alert(111);
 				$.confirm({
 				    title: '小心',
 				    content: '确认删除么?',
@@ -126,7 +90,6 @@
 				    }
 				});
 			}
-
 		</script>
 </head>
 
@@ -134,6 +97,7 @@
 	<jsp:include page="/WEB-INF/view/navigation.jsp">
 		<jsp:param value="video" name="fromJsp"/>
 	</jsp:include>
+	
 	<div class="row">
 		<div class="jumbotron col-md-offset-2 col-md-8"
 			style="border-radius: 10px;">
